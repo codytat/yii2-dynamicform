@@ -460,6 +460,10 @@
                 $.when($('#' + id).select2(configSelect2)).done(initS2Loading(id, '.select2-container--krajee'));
 
                 var kvClose = 'kv_close_' + id.replace(/\-/g, '_');
+             
+                $('#' + id).on('select2:opening', function(ev) {
+                    initS2Loading(id, kvClose, ev);
+                });
 
                 $('#' + id).on('select2:unselect', function() {
                     window[kvClose] = true;
