@@ -227,7 +227,7 @@
                 $(this).removeClass('field-' + id).addClass('field-' + newID);
             });
             // update "for" attribute
-            $elem.closest(widgetOptions.widgetItem).find("label[for='" + id + "']").attr('for',newID); 
+            $elem.closest(widgetOptions.widgetItem).find("label[for='" + id + "']").attr('for',newID);
         }
 
         return newID;
@@ -369,6 +369,15 @@
             });
         }
 
+        // "kartik-v/yii2-widget-datetimepicker"
+        var $hasDateTimepicker = $(widgetOptionsRoot.widgetItem).find('[data-krajee-datetimepicker]');
+        if ($hasDateTimepicker.length > 0) {
+            $hasDateTimepicker.each(function() {
+                $(this).parent().removeData().datetimepicker('remove');
+                $(this).parent().datetimepicker(eval($(this).attr('data-krajee-datetimepicker')));
+            });
+        }
+
         // "kartik-v/yii2-money"
         var $hasMaskmoney = $(widgetOptionsRoot.widgetItem).find('[data-krajee-maskMoney]');
         if ($hasMaskmoney.length > 0) {
@@ -460,7 +469,7 @@
                 $.when($('#' + id).select2(configSelect2)).done(initS2Loading(id, '.select2-container--krajee'));
 
                 var kvClose = 'kv_close_' + id.replace(/\-/g, '_');
-             
+
                 $('#' + id).on('select2:opening', function(ev) {
                     initS2Loading(id, kvClose, ev);
                 });
